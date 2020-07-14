@@ -22,31 +22,31 @@ def register():
     """
     post_save.connect(completion_updated_handler, sender=compat.get_aggregated_model())
 
-    try:
-        from xmodule.modulestore.django import SignalHandler
-    except ImportError:
-        log.warning(
-            "Could not import modulestore signal handlers. Completion Aggregator not hooked up to edx-platform."
-        )
-    else:
-        SignalHandler.course_published.connect(course_published_handler)
-        SignalHandler.item_deleted.connect(item_deleted_handler)
+    #try:
+    #    from xmodule.modulestore.django import SignalHandler
+    #except ImportError:
+    #    log.warning(
+    #        "Could not import modulestore signal handlers. Completion Aggregator not hooked up to edx-platform."
+    #    )
+    #else:
+    #    SignalHandler.course_published.connect(course_published_handler)
+    #    SignalHandler.item_deleted.connect(item_deleted_handler)
 
-    ginkgo_error_template = "%s signal not found. If this is a solutions/ginkgo server, this is expected."
+    #ginkgo_error_template = "%s signal not found. If this is a solutions/ginkgo server, this is expected."
 
-    try:
-        from openedx.core.djangoapps.course_groups.signals.signals import COHORT_MEMBERSHIP_UPDATED
-    except ImportError:
-        log.info(ginkgo_error_template, "COHORT_MEMBERSHIP_UPDATED")
-    else:
-        COHORT_MEMBERSHIP_UPDATED.connect(cohort_updated_handler)
+    #try:
+    #    from openedx.core.djangoapps.course_groups.signals.signals import COHORT_MEMBERSHIP_UPDATED
+    #except ImportError:
+    #    log.info(ginkgo_error_template, "COHORT_MEMBERSHIP_UPDATED")
+    #else:
+    #    COHORT_MEMBERSHIP_UPDATED.connect(cohort_updated_handler)
 
-    try:
-        from student.signals.signals import ENROLLMENT_TRACK_UPDATED
-    except ImportError:
-        log.info(ginkgo_error_template, "ENROLLMENT_TRACK_UPDATED")
-    else:
-        ENROLLMENT_TRACK_UPDATED.connect(cohort_updated_handler)
+    #try:
+    #    from student.signals.signals import ENROLLMENT_TRACK_UPDATED
+    #except ImportError:
+    #    log.info(ginkgo_error_template, "ENROLLMENT_TRACK_UPDATED")
+    #else:
+    #    ENROLLMENT_TRACK_UPDATED.connect(cohort_updated_handler)
 
 
 # Signal handlers frequently ignore arguments passed to them.  No need to lint them.
